@@ -11,9 +11,9 @@ function App() {
         <Task2 />
       </div> */}
 
-      {/* <div style={{minHeight: "100vh", backgroundColor: "#A7A1D3"}}>
+      <div style={{minHeight: "100vh", backgroundColor: "#A7A1D3"}}>
         <Task3 colors={['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'cyan', 'brown', 'gray', 'black', 'white', 'violet', 'indigo', 'teal', 'magenta', 'olive', 'maroon', 'navy', 'lime', 'fuchsia', 'aqua', 'silver', 'gold']} />
-      </div> */}
+      </div>
     </div>
   );
 }
