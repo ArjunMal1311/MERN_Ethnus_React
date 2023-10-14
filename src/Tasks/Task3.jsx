@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 export function Task3(props) {
-    const [displayColors, setDisplayColors] = useState(false);
-    const [bgColor, setBgColor] = useState("pink")
+    const [showColors, setShowColors] = useState(false);
+    const [selectedColor, setSelectedColor] = useState("pink")
 
-    const handleClick = () => {
-        setDisplayColors(true);
+    const handleShowColors = () => {
+        setShowColors(true);
     }
 
-    const handleColor = (color) => {
-        setBgColor(color);
-        setDisplayColors(false);
+    const handleSelectColor = (color) => {
+        setSelectedColor(color);
+        setShowColors(false);
     }
 
     const headingStyle = {
@@ -28,18 +28,18 @@ export function Task3(props) {
             <h1 style={headingStyle}>Arjun Malhotra</h1>
             <h2 style={subheadingStyle}>21BBS0110</h2>
             <h3 className='text-center fw-bolder'>Color Picker</h3>
-            <div style={{ backgroundColor: bgColor }} className='display2 m-auto d-flex flex-column align-items-center justify-content-center mb-5'>
+            <div style={{ backgroundColor: selectedColor }} className='display2 m-auto d-flex flex-column align-items-center justify-content-center mb-5'>
                 <div className='d-flex flex-wrap justify-content-center color-bar'>
-                    {displayColors && props.colors.map((color, index) => (
+                    {showColors && props.colors.map((color, index) => (
                         <div
                             key={index}
                             className='color-box'
                             style={{ backgroundColor: color }}
-                            onClick={() => { handleColor(color) }}
+                            onClick={() => { handleSelectColor(color) }}
                         ></div>
                     ))}
                 </div>
-                <button className='btn btn-success button' onClick={handleClick}>Pick a color</button>
+                <button className='btn btn-success button' onClick={handleShowColors}>Pick a color</button>
             </div>
         </div>
     )

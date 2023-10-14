@@ -1,121 +1,121 @@
 import React, { useState, useEffect } from 'react';
 
 export function Task2() {
-    const keys = [
+    const numericKeys = [
         {
-            keycode: 55,
+            code: 55,
             label: "7"
         },
         {
-            keycode: 56,
+            code: 56,
             label: "8"
         },
         {
-            keycode: 57,
+            code: 57,
             label: "9"
         },
         {
-            keycode: 52,
+            code: 52,
             label: "4"
         },
         {
-            keycode: 53,
+            code: 53,
             label: "5"
         },
         {
-            keycode: 54,
+            code: 54,
             label: "6"
         },
         {
-            keycode: 49,
+            code: 49,
             label: "1"
         },
         {
-            keycode: 50,
+            code: 50,
             label: "2"
         },
         {
-            keycode: 51,
+            code: 51,
             label: "3"
         },
         {
-            keycode: 48,
+            code: 48,
             label: "0"
         },
         {
-            keycode: 190,
+            code: 190,
             label: "."
         },
         {
-            keycode: 13,
+            code: 13,
             label: "="
         }
     ]
 
-    const symbol = [
+    const symbolKeys = [
         {
             label: "⌫",
-            keycode: 8,
+            code: 8,
             value: "backspace",
         },
         {
             label: "÷",
-            keycode: 111,
+            code: 111,
             value: "/",
         },
         {
             label: "x",
-            keycode: 56,
+            code: 56,
             value: "*",
         },
         {
             label: "-",
-            keycode: 109,
+            code: 109,
             value: "-",
         },
         {
             label: "+",
-            keycode: 107,
+            code: 107,
             value: "+",
         },
     ]
 
-    const [exp, setExp] = useState('');
-    const [ans, setAns] = useState(null);
+    const [expression, setExpression] = useState('');
+    const [result, setResult] = useState(null);
 
-    const handleKeyPress = (keycode, key) => {
-        let updatedExp = exp;
+    const handleKeyPress = (code, key) => {
+        let updatedExpression = expression;
 
-        if (keycode === 8) {
-            updatedExp = updatedExp.slice(0, -1);
-            setAns(null);
+        if (code === 8) {
+            updatedExpression = updatedExpression.slice(0, -1);
+            setResult(null);
         }
-        else if (keycode === 13) {
+        else if (code === 13) {
             try {
-                const result = eval(exp);
-                setAns(result);
-                updatedExp = '';
+                const computedResult = eval(expression);
+                setResult(computedResult);
+                updatedExpression = '';
             } catch (error) {
-                setAns('Error');
-                updatedExp = 'Error';
+                setResult('Error');
+                updatedExpression = 'Error';
             }
         }
         else {
-            setAns(null);
-            updatedExp += key;
+            setResult(null);
+            updatedExpression += key;
         }
 
-        setExp(updatedExp);
+        setExpression(updatedExpression);
     }
 
     useEffect(() => {
         const handleKeyDown = (event) => {
             const { keyCode, key } = event;
-            const isKeyInArray = keys.some((item) => item.keycode === keyCode);
-            const isSymbolInArray = symbol.some((item) => item.keycode === keyCode);
+            const isNumericKey = numericKeys.some((item) => item.code === keyCode);
+            const isSymbolKey = symbolKeys.some((item) => item.code === keyCode);
 
-            if (isKeyInArray || isSymbolInArray) {
-                handleKeyPress(keyCode, isKeyInArray ? key : symbol.find(item => item.keycode === keyCode).value);
+            if (isNumericKey || isSymbolKey) {
+                handleKeyPress(keyCode, isNumericKey ? key : symbolKeys.find(item => item.code === keyCode).value);
             }
         };
 
@@ -124,17 +124,19 @@ export function Task2() {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [handleKeyPress, keys, symbol]);
+    }, [handleKeyPress, numericKeys, symbolKeys]);
 
 
     const headingStyle = {
         fontSize: '40px',
         fontWeight: 'bold',
+        backgroundColor: "transparent"
     };
 
     const subheadingStyle = {
         padding: "16px",
         fontSize: '24px',
+        backgroundColor: "transparent"
     };
 
     return (
@@ -143,24 +145,24 @@ export function Task2() {
             <h2 style={subheadingStyle}>21BBS0110</h2>
             <div className='display'>
                 <div className='display-expression'>
-                    {exp !== '' && <p>{exp}</p>}
+                    {expression !== '' && <p>{expression}</p>}
                 </div>
                 <div className='display-answer'>
-                    {ans !== null && <p>{ans}</p>}
+                    {result !== null && <p>{result}</p>}
                 </div>
             </div>
             <div className='keypad' >
                 <div className='keypad-keys'>
                     {
-                        keys.map((item, index) => (
-                            <p onClick={() => handleKeyPress(item.keycode, item.label)} key={index} > {item.label}</p>)
+                        numericKeys.map((item, index) => (
+                            <p onClick={() => handleKeyPress(item.code, item.label)} key={index} > {item.label}</p>)
                         )
                     }
                 </div>
                 <div className='keypad-symbols'>
                     {
-                        symbol.map((item, index) => (
-                            <p onClick={() => handleKeyPress(item.keycode, item.value)} key={index}>{item.label}</p>))
+                        symbolKeys.map((item, index) => (
+                            <p onClick={() => handleKeyPress(item.code, item.value)} key={index}>{item.label}</p>))
                     }
                 </div>
             </div>
